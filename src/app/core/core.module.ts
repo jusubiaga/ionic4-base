@@ -21,11 +21,4 @@ export class CoreModule {
       throw new Error('CoreModule is already loaded. Import only in AppModule');
     }
   }
-
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: CoreModule,
-      providers: [AuthService]
-    };  
-  }
 }

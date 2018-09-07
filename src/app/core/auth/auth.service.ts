@@ -48,12 +48,10 @@ export class AuthService {
 
     getToken() {
         return Rx.of(this.storage.get(this.tokenKey));
-        // return JSON.parse(localStorage.getItem(this.tokenKey));
     }
 
     private setToken(token) {
         return Rx.of(this.storage.set(this.tokenKey, JSON.stringify(token)));
-        // localStorage.setItem(this.tokenKey, JSON.stringify(token));
     }
 
     getAccessToken() {
@@ -67,13 +65,6 @@ export class AuthService {
     isAuthenticated() {
         const authStatus = this.authStatusChanged.value;
         return authStatus.authenticated ? authStatus.authenticated : false;
-
-        // if () {
-        //     return true;
-        // }
-        // else {
-        //     return false;
-        // }
     }
 
     refreshToken() {
@@ -83,7 +74,6 @@ export class AuthService {
 
     private removeToken() {
         return Rx.of(this.storage.remove(this.tokenKey));
-        // localStorage.removeItem(this.tokenKey);
     }
 
     private checkToken() {
