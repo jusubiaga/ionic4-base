@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import * as Rx from "rxjs";
 
 interface AuthStatus {
@@ -24,24 +26,34 @@ export class AuthService {
 
     tokenKey: string = "a6smm_utoken"
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private storage: Storage, private platform: Platform) { 
+        this.platform.ready().then(() => {
+            console.log('Auth Service Ready')
+            this.checkToken();
+        })
+    }
 
     login(username, password) {
-        this.setToken(this.token);
-        this.authStatusChanged.next({authenticated: true});
+        this.setToken(this.token).subscribe(() => {
+            this.authStatusChanged.next({authenticated: true});
+        });        
     }
 
     logout() {
-        this.removeToken();
-        this.authStatusChanged.next({authenticated: false});
+        this.removeToken().subscribe(() => {
+            this.authStatusChanged.next({authenticated: false});
+        })
+        
     }
 
     getToken() {
-        return JSON.parse(localStorage.getItem(this.tokenKey));
+        return Rx.of(this.storage.get(this.tokenKey));
+        // return JSON.parse(localStorage.getItem(this.tokenKey));
     }
 
-    setToken(token) {
-        localStorage.setItem(this.tokenKey, JSON.stringify(token));
+    private setToken(token) {
+        return Rx.of(this.storage.set(this.tokenKey, JSON.stringify(token)));
+        // localStorage.setItem(this.tokenKey, JSON.stringify(token));
     }
 
     getAccessToken() {
@@ -53,14 +65,15 @@ export class AuthService {
     }
 
     isAuthenticated() {
-        let token = localStorage.getItem(this.tokenKey);
+        const authStatus = this.authStatusChanged.value;
+        return authStatus.authenticated ? authStatus.authenticated : false;
 
-        if (token) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        // if () {
+        //     return true;
+        // }
+        // else {
+        //     return false;
+        // }
     }
 
     refreshToken() {
@@ -68,8 +81,16 @@ export class AuthService {
         this.setToken(this.token);
     }
 
-    removeToken() {
-        localStorage.removeItem(this.tokenKey);
+    private removeToken() {
+        return Rx.of(this.storage.remove(this.tokenKey));
+        // localStorage.removeItem(this.tokenKey);
     }
 
+    private checkToken() {
+        this.storage.get(this.tokenKey).then((token) => {
+            if (token) {
+                this.authStatusChanged.next({authenticated: true})
+            }            
+        })
+    }
 }

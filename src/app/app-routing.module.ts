@@ -4,14 +4,23 @@ import { AuthGuardService } from '@app/core';
 
 const routes: Routes = [
   { 
-    path: '', 
-    canActivate: [AuthGuardService],
-    loadChildren: './pages/tabs/tabs.module#TabsPageModule' 
-  },
-  { 
     path: 'login', 
     loadChildren: './pages/login/login.module#LoginPageModule' 
-  }
+  },
+  { 
+    path: 'register', 
+    loadChildren: './pages/register/register.module#RegisterPageModule' 
+  },
+  { 
+    path: '', 
+    // canActivate: [AuthGuardService],
+    loadChildren: './pages/tabs/tabs.module#TabsPageModule' 
+  },  
+  { 
+    path: 'dashboard', 
+    loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule' 
+  },
+  // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

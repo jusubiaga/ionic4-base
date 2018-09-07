@@ -20,18 +20,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     private authService: AuthService
-  ) {
-
-      // Listen form auth changes
-      this.authService.authStatusChanged.subscribe((status) => {
-        if (status.authenticated) {
-          this.router.navigate([DEFAULT_PAGE]);          
-        } else {
-          this.router.navigate([LOGIN_PAGE]);
-        }
-        console.log(status);
-      })
-    
+  ) {    
     this.initializeApp();
   }
 
@@ -39,6 +28,17 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      // Listen form auth changes
+      this.authService.authStatusChanged.subscribe((status) => {
+        if (status.authenticated) {
+          this.router.navigate([DEFAULT_PAGE]);
+        } else {
+          this.router.navigate([LOGIN_PAGE]);
+        }
+        console.log(status);
+      })
+      
     });
   }
 }
