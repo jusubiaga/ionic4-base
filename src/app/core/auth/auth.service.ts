@@ -24,7 +24,7 @@ export class AuthService {
         }
     };
 
-    tokenKey: string = "a6smm_utoken"
+    tokenKey: string = "currentUser"
 
     constructor(private router: Router, private storage: Storage, private platform: Platform) { 
         this.platform.ready().then(() => {

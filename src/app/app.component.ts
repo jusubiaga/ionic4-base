@@ -14,6 +14,33 @@ const LOGIN_PAGE = 'login';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+ public appPages = [
+    {
+      title: 'Home',
+      url: '/tabs/home',
+      icon: 'home',
+      routerDirection: 'root'
+    },
+    {
+      title: 'About',
+      url: '/tabs/about',
+      icon: 'information-circle',
+      routerDirection: 'root'
+    },
+    {
+      title: 'Contact',
+      url: '/tabs/contact',
+      icon: 'contact',
+      routerDirection: 'forward'
+    },
+    {
+      title: 'Dashboard',
+      url: '/dashboard',
+      icon: 'contact',
+      routerDirection: 'root'
+    }        
+  ];  
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
