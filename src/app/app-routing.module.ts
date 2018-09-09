@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   { 
     path: 'main', 
-    // canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
     loadChildren: './pages/tabs/tabs.module#TabsPageModule' 
   },  
   { 
