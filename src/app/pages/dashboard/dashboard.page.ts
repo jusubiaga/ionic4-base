@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { AuthService } from '@app/core';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from '@app/core';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private location: Location) { }
 
   ngOnInit() {
   }
@@ -16,4 +17,9 @@ export class DashboardPage implements OnInit {
   logout() {
     this.authService.logout();
   }
+
+  goBack(): void {
+    this.location.back();
+  }
+  
 }

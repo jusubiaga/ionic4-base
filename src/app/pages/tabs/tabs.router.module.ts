@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/tabs/(home:home)',
+        redirectTo: '/main/tabs/(home:home)',
         pathMatch: 'full',
       },
       {
@@ -33,26 +33,26 @@ const routes: Routes = [
       }
     ]
   },
-  {
-    path: '',
-    redirectTo: '/tabs/(home:home)',
-    pathMatch: 'full'
-  },
-  {
-    path: 'tabs/home',
-    redirectTo: '/tabs/(home:home)',
-    pathMatch: 'full'
-  },  
-  {
-    path: 'tabs/about',
-    redirectTo: '/tabs/(about:about)',
-    pathMatch: 'full'
-  },
-  {
-    path: 'tabs/contact',
-    redirectTo: '/tabs/(contact:contact)',
-    pathMatch: 'full'
-  },  
+  // {
+  //   path: '',
+  //   redirectTo: '/tabs/(home:home)',
+  //   pathMatch: 'full'
+  // },
+  // {
+  //   path: 'tabs/home',
+  //   redirectTo: '/tabs/(home:home)',
+  //   pathMatch: 'full'
+  // },  
+  // {
+  //   path: 'tabs/about',
+  //   redirectTo: '/tabs/(about:about)',
+  //   pathMatch: 'full'
+  // },
+  // {
+  //   path: 'tabs/contact',
+  //   redirectTo: '/tabs/(contact:contact)',
+  //   pathMatch: 'full'
+  // },  
 ];
 
 @NgModule({

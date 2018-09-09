@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: './pages/register/register.module#RegisterPageModule' 
   },
   { 
-    path: '', 
+    path: 'main', 
     // canActivate: [AuthGuardService],
     loadChildren: './pages/tabs/tabs.module#TabsPageModule' 
   },  

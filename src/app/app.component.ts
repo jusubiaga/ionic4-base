@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core';
 
-const DEFAULT_PAGE = 'tabs';
+const DEFAULT_PAGE = '/main/tabs';
 const LOGIN_PAGE = 'login';
 
 @Component({
@@ -17,26 +17,26 @@ export class AppComponent {
  public appPages = [
     {
       title: 'Home',
-      url: '/tabs/home',
+      url: '/main/tabs/(home:home)',
       icon: 'home',
       routerDirection: 'root'
     },
     {
       title: 'About',
-      url: '/tabs/about',
+      url: '/main/tabs/(about:about)',
       icon: 'information-circle',
       routerDirection: 'root'
     },
     {
       title: 'Contact',
-      url: '/tabs/contact',
+      url: '/main/tabs/(contact:contact)',
       icon: 'contact',
       routerDirection: 'forward'
     },
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: 'contact',
+      icon: 'trending-up',
       routerDirection: 'root'
     }        
   ];  
