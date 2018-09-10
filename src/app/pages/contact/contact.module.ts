@@ -1,16 +1,12 @@
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from '@app/shared';
+import { RouterModule } from '@angular/router';
 import { ContactPage } from './contact.page';
 import { ProfilePageModule } from '../profile/profile.module';
 
 @NgModule({
   imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
+    SharedModule,
     RouterModule.forChild([{ path: '', component: ContactPage }]),
     ProfilePageModule
   ],
