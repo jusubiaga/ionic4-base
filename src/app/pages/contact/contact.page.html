@@ -10,7 +10,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+    </ion-buttons>    
     <ion-title>
       Contact
     </ion-title>
@@ -25,5 +25,6 @@
       @ionicframework
     </ion-item>
     <ion-button (click)="logout()">Logout</ion-button>
+    <ion-button color="secondary" expand="block" (click)="presentModal()">Profile</ion-button>
   </ion-list>
 </ion-content>

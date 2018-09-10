@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '@app/core';
+import { ModalController } from '@ionic/angular';
+import { ProfilePage } from '../profile/profile.page';
 
 @Component({
   selector: 'app-contact',
@@ -7,11 +9,18 @@ import { AuthService } from '@app/core';
   styleUrls: ['contact.page.scss']
 })
 export class ContactPage {
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, public modalController: ModalController) {
 
   }
 
   logout() {
     this.authService.logout();
   }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ProfilePage
+    });
+    return await modal.present();
+  }  
 }

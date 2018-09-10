@@ -38,7 +38,7 @@ export class AppComponent {
       url: '/dashboard',
       icon: 'trending-up',
       routerDirection: 'root'
-    }        
+    }
   ];  
 
   constructor(

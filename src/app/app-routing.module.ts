@@ -20,6 +20,7 @@ const routes: Routes = [
     path: 'dashboard', 
     loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule' 
   },
+  { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
   // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 @NgModule({
