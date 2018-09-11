@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core';
+import {TranslateService} from '@ngx-translate/core';
 
 const DEFAULT_PAGE = '/main/tabs';
 const LOGIN_PAGE = 'login';
@@ -16,19 +17,19 @@ const LOGIN_PAGE = 'login';
 export class AppComponent {
  public appPages = [
     {
-      title: 'Home',
+      title: 'home.title',
       url: '/main/tabs/(home:home)',
       icon: 'home',
       routerDirection: 'root'
     },
     {
-      title: 'About',
+      title: 'about.title',
       url: '/main/tabs/(about:about)',
       icon: 'information-circle',
       routerDirection: 'root'
     },
     {
-      title: 'Contact',
+      title: 'contact.title',
       url: '/main/tabs/(contact:contact)',
       icon: 'contact',
       routerDirection: 'forward'
@@ -46,7 +47,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private translate: TranslateService
   ) {    
     this.initializeApp();
   }
@@ -64,7 +66,9 @@ export class AppComponent {
           this.router.navigate([LOGIN_PAGE]);
         }
         console.log(status);
-      })
+      });
+
+      this.translate.setDefaultLang('en');
       
     });
   }

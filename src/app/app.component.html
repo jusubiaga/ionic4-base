@@ -12,7 +12,7 @@
             <ion-item [routerDirection]="routerDirection" [href]="page.url">
               <ion-icon slot="start" [name]="page.icon"></ion-icon>
               <ion-label>
-                {{page.title}}
+                {{page.title | translate}}
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
