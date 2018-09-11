@@ -15,6 +15,7 @@ import { CoreModule } from './core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { AlertService } from '@app/core'
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +36,8 @@ import { HttpClient } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AlertService
   ],
   bootstrap: [AppComponent]
 })

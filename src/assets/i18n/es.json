@@ -1,4 +1,8 @@
 {
+    "login": {
+        "emailPlaceholder": "Direccion de email",
+        "passwordPlaceholder": "Contrasena"
+    },    
     "home": {
         "title": "Principal"
     },

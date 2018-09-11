@@ -1,4 +1,9 @@
 {
+    "login": {
+        "emailPlaceholder": "Email address",
+        "passwordPlaceholder": "Password",
+        "alertErrorTitle": "Error"
+    },
     "home": {
         "title": "Home"
     },
