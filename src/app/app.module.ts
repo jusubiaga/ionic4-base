@@ -16,6 +16,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from '@app/core'
+import { initializeApp } from 'firebase';
+
+
 
 @NgModule({
   declarations: [AppComponent],
