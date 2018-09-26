@@ -16,9 +16,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from '@app/core'
-import { initializeApp } from 'firebase';
-
-
+import { environment } from '@env/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +34,9 @@ import { initializeApp } from 'firebase';
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             }
-        })    
+        }),
+      AngularFireModule.initializeApp(environment.firebase),
+      AngularFireAuthModule
   ],
   providers: [
     StatusBar,

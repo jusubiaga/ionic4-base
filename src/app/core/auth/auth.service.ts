@@ -3,8 +3,17 @@ import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as Rx from "rxjs";
+import { AngularFireAuth } from '@angular/fire/auth';
+
+export enum AUTH_STATE {
+    CHECKING_USER,
+    AUTHENTICATING,
+    AUTHORIZATING,
+    DONE
+}
 
 interface AuthStatus {
+    state?: AUTH_STATE;
     authenticated: boolean;
 }
 
@@ -13,7 +22,7 @@ interface AuthStatus {
 })
 export class AuthService {
     // Initial Status
-    authStatusChanged = new Rx.BehaviorSubject<AuthStatus>({authenticated: false});
+    authStatusChanged = new Rx.BehaviorSubject<AuthStatus>({state: AUTH_STATE.CHECKING_USER, authenticated: false}); 
 
     token = {
         refresh_token: 'refreshtokencode',
@@ -26,24 +35,51 @@ export class AuthService {
 
     tokenKey: string = "currentUser"
 
-    constructor(private router: Router, private storage: Storage, private platform: Platform) { 
+    constructor(private router: Router, private storage: Storage, private platform: Platform, private angularFireAuth : AngularFireAuth) {
+        this.angularFireAuth.auth.onAuthStateChanged((firebaseUser) => {
+            console.log('onAuthStateChanged!');
+            if(firebaseUser) {
+                console.log('Logged In!');
+                console.log(firebaseUser);
+                this.validateUser(firebaseUser)
+                .then((user) => {
+                    this.authStatusChanged.next({state: AUTH_STATE.DONE, authenticated: true});
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.logout();
+                })
+                
+            } else {
+                console.log('Logged Out!');
+                this.authStatusChanged.next({state: AUTH_STATE.DONE, authenticated: false});
+            }
+        })
+
         this.platform.ready().then(() => {
-            console.log('Auth Service Ready')
-            this.checkToken();
+            console.log('Auth Service Ready');
         })
     }
 
     login(username, password) {
-        this.setToken(this.token).subscribe(() => {
-            this.authStatusChanged.next({authenticated: true});
-        });        
+        this.authStatusChanged.next({state: AUTH_STATE.AUTHENTICATING, authenticated: false});
+        this.angularFireAuth.auth.signInWithEmailAndPassword(username, password)
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     logout() {
-        this.removeToken().subscribe(() => {
-            this.authStatusChanged.next({authenticated: false});
-        })
-        
+        this.angularFireAuth.auth.signOut();
+    }
+
+    async validateUser(firebaseUser) {
+        console.log('Validating user ...');
+        this.authStatusChanged.next({state: AUTH_STATE.AUTHORIZATING, authenticated: false});
+        const token = await firebaseUser.getIdToken();
+        console.log(token);
+        return true;
+        // throw new Error('Error');
     }
 
     getToken() {
@@ -63,8 +99,9 @@ export class AuthService {
     }
 
     isAuthenticated() {
-        const authStatus = this.authStatusChanged.value;
-        return authStatus.authenticated ? authStatus.authenticated : false;
+        // const authStatus = this.authStatusChanged.value;
+        // return authStatus.authenticated ? authStatus.authenticated : false;
+        return this.angularFireAuth.auth.currentUser !== null;
     }
 
     refreshToken() {
@@ -77,10 +114,13 @@ export class AuthService {
     }
 
     private checkToken() {
-        this.storage.get(this.tokenKey).then((token) => {
-            if (token) {
-                this.authStatusChanged.next({authenticated: true})
-            }            
-        })
+        // this.storage.get(this.tokenKey).then((token) => {
+        //     if (token) {
+        //         this.authStatusChanged.next({authenticated: true})
+        //     }            
+        // })
+        if (this.isAuthenticated()) {
+            this.authStatusChanged.next({authenticated: true});
+        }
     }
 }

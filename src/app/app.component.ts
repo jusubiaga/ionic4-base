@@ -4,11 +4,12 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/core';
-import {TranslateService} from '@ngx-translate/core';
+import { AuthService, AUTH_STATE } from '@app/core';
+import { TranslateService } from '@ngx-translate/core';
 
 const DEFAULT_PAGE = '/main/tabs';
 const LOGIN_PAGE = 'login';
+const INIT_PAGE = 'init';
 
 @Component({
   selector: 'app-root',
@@ -58,14 +59,19 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
+      // Init page
+      this.router.navigate([INIT_PAGE]);
+
       // Listen form auth changes
       this.authService.authStatusChanged.subscribe((status) => {
-        if (status.authenticated) {
-          this.router.navigate([DEFAULT_PAGE]);
-        } else {
-          this.router.navigate([LOGIN_PAGE]);
-        }
         console.log(status);
+        if (status.state === AUTH_STATE.DONE) {
+          if (status.authenticated) {
+            this.router.navigate([DEFAULT_PAGE]);
+          } else {
+            this.router.navigate([LOGIN_PAGE]);
+          }
+        }        
       });
 
       this.translate.setDefaultLang('en');

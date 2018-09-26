@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@app/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertService } from '@app/core';
+import { AlertService, AUTH_STATE } from '@app/core';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -9,12 +10,20 @@ import { AlertService } from '@app/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  loading;
   loginForm = new FormGroup ({
     user: new FormControl(),
     password: new FormControl()
   });
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private alertService: AlertService) { 
+  constructor(private authService: AuthService, private formBuilder: FormBuilder, private alertService: AlertService, 
+  private loadingController: LoadingController) { 
+
+    this.authService.authStatusChanged.subscribe((status) => {
+      if (status.state === AUTH_STATE.DONE && this.loading) {
+        this.loading.dismiss();
+      } 
+    });
   }
 
   ngOnInit() {
@@ -24,15 +33,27 @@ export class LoginPage implements OnInit {
     });
   }
 
-  login(username, password) {    
+  login() {    
     if (this.loginForm.valid) {
-      console.log("Login!");
-      this.authService.login(username, password);
-      this.loginForm.reset();
+      console.log("Login ...");
+
+      this.presentLoading();
+
+      const credentials = this.loginForm.value;
+      this.authService.login(credentials.user, credentials.password);
+      // this.loginForm.reset();
     } else {
       console.log('Form error');
       //console.log(this.loginForm.get('user').hasError('required'));
       this.alertService.presentErrorAlert('Login Error');
     }
   }
+
+  async presentLoading() {
+      this.loading = await this.loadingController.create({
+        message: `logging in ....`,
+      });
+      return await this.loading.present();
+  }
+  
 }
