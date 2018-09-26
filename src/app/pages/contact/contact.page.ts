@@ -14,7 +14,7 @@ export class ContactPage {
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.signOut();
   }
 
   async presentModal() {

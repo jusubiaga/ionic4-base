@@ -15,7 +15,7 @@ export class DashboardPage implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.signOut();
   }
 
   goBack(): void {

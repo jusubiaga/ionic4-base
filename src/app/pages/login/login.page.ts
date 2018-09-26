@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
       this.presentLoading();
 
       const credentials = this.loginForm.value;
-      this.authService.login(credentials.user, credentials.password);
+      this.authService.signInWithEmailAndPassword(credentials.user, credentials.password);
       // this.loginForm.reset();
     } else {
       console.log('Form error');

@@ -47,7 +47,7 @@ export class AuthService {
                 })
                 .catch((err) => {
                     console.log(err);
-                    this.logout();
+                    this.signOut();
                 })
                 
             } else {
@@ -61,7 +61,7 @@ export class AuthService {
         })
     }
 
-    login(username, password) {
+    signInWithEmailAndPassword(username, password) {
         this.authStatusChanged.next({state: AUTH_STATE.AUTHENTICATING, authenticated: false});
         this.angularFireAuth.auth.signInWithEmailAndPassword(username, password)
         .catch((err) => {
@@ -69,7 +69,7 @@ export class AuthService {
         })
     }
 
-    logout() {
+    signOut() {
         this.angularFireAuth.auth.signOut();
     }
 
@@ -79,7 +79,6 @@ export class AuthService {
         const token = await firebaseUser.getIdToken();
         console.log(token);
         return true;
-        // throw new Error('Error');
     }
 
     getToken() {
