@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private alertService: AlertService, 
   private loadingController: LoadingController) { 
-
+    console.log('Constructor');
     this.authService.authStatusChanged.subscribe((status) => {
       if (status.state === AUTH_STATE.DONE && this.loading) {
         this.loading.dismiss();
@@ -31,6 +31,11 @@ export class LoginPage implements OnInit {
       user: ['', [Validators.required, Validators.email ]],
       password: ['', [Validators.required , Validators.minLength(6)]]
     });
+  }
+
+  ionViewDidEnter(){
+      console.log("ionViewDidEnter");
+      this.loginForm.reset();
   }
 
   login() {    

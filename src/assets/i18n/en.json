@@ -1,8 +1,22 @@
 {
+    "generic": {
+        "errors": {
+            "required": "{{field}} must not be blank",
+            "email": "Invalid email",
+            "minLength": "{{field}} must be at least 6 characters"
+        }
+    },
     "login": {
         "emailPlaceholder": "Email address",
         "passwordPlaceholder": "Password",
         "alertErrorTitle": "Error"
+    },
+    "register": {
+        "firstNameLabel": "First Name",
+        "lastNameLabel": "Last Name",
+        "emailAddressLabel": "Email Address",
+        "passwordLabel": "Password",
+        "confirmPasswordLabel": "Confirm password"
     },
     "home": {
         "title": "Home"

@@ -9,4 +9,31 @@
 
 <ion-content padding>
 
+  <form [formGroup]="registerForm">
+
+    <ion-item>
+      <ion-input required type="text" placeholder="{{'register.firstNameLabel' | translate}}" formControlName="firstName"></ion-input>
+    </ion-item>  
+
+    <ion-item>
+      <ion-input required type="text" placeholder="{{'register.lastNameLabel' | translate}}" formControlName="lastName"></ion-input>
+    </ion-item>  
+
+    <ion-item>
+      <ion-input required type="text" placeholder="{{'register.emailAddressLabel' | translate}}" formControlName="email"></ion-input>
+    </ion-item>  
+
+    <ion-item>
+      <ion-input required type="password" placeholder="{{'register.passwordLabel' | translate}}" formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input required type="password" placeholder="{{'register.confirmPasswordLabel' | translate}}" formControlName="confirmPassword"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="register()" expand="block">Register</ion-button>
+
+  </form>
+
+
 </ion-content>

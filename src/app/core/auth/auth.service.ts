@@ -81,6 +81,20 @@ export class AuthService {
         return true;
     }
 
+    registerUser (user) {
+        // TBD
+        console.log(user);
+        this.angularFireAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
+        .catch((err) => {
+            if (err.code == 'auth/weak-password') {
+                alert('The password is too weak.');
+            } else {
+                alert(err.message);
+            }
+            console.log(err);
+        });
+    }
+
     getToken() {
         return Rx.of(this.storage.get(this.tokenKey));
     }

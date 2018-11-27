@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AuthService, AUTH_STATE } from '@app/core';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../environments/environment';
 
 const DEFAULT_PAGE = '/main/tabs';
 const LOGIN_PAGE = 'login';
@@ -75,6 +76,8 @@ export class AppComponent {
       });
 
       this.translate.setDefaultLang('en');
+
+      console.log(`ENVIRONMENT: ${environment.version}`);
       
     });
   }
